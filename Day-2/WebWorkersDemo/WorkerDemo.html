@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Web Workers Demo</title>
+	<script>
+	(function(){
+		var worker = new Worker("ComplexWork.js");
+		worker.onmessage = function(msgEvt){
+			if (msgEvt.data.type === "completed"){
+				displayMessage("Complex work completed");
+			} else if (msgEvt.data.type === "progress"){
+				document.getElementById("workerProgress").value = msgEvt.data.percentCompleted;
+			}
+		};
+
+		window.addEventListener("DOMContentLoaded",function(){
+			document.getElementById("btnStart").addEventListener("click",function(){
+				displayMessage("Complex work starting");
+				worker.postMessage("start");		
+		
+			});
+		});
+		
+		function displayMessage(msg){
+			document.getElementById("divMessage").innerHTML += msg + "<br/>";
+		}
+	})();
+
+	</script>
+</head>
+<body>
+	<input type="text" name="" id="">
+	<input type="button" value="Start" id="btnStart">
+	<br>
+	<progress id="workerProgress" min="0" max="100" value="0"></progress>
+	<div id="divMessage">[Message]</div>
+</body>
+</html>
