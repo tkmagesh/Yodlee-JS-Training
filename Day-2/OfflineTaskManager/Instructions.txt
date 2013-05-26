@@ -1,0 +1,18 @@
+1. Create with a "manifest" file listing the resources to be cached
+2. Refer to the manifest in the "<html>" tag
+3. Structure of the manifest file
+	=================================
+	CACHE MANIFEST
+	#COMMENTS
+
+	CACHE:
+	#all the resources to be cached
+
+	NETWORK:
+	#all the resources that should not be cached
+
+	FALLBACK
+	#resource to use online		#alternative resource when offline
+	=================================
+4. Manifest file should be served to the browser using "text/cache-manifest" mime-type
+5. Browser cache is refreshed only when the manifest file in the server changes

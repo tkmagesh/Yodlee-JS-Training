@@ -1,0 +1,16 @@
+body {
+	margin : 0px;
+}
+h1{
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 20px 10px;
+}
+#container{
+	margin-left: 20px;
+}
+.completed {
+	color : red;
+	text-decoration: line-through;
+	font-style: italic;
+}

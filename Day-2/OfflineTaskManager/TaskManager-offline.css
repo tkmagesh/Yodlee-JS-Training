@@ -1,0 +1,8 @@
+h1 {	
+	border-top: 3px solid red;
+	border-bottom: 3px solid red;
+	background-color: lightpink;
+}
+#btnRemoveCompletedTasks {
+	visibility: hidden;
+}

@@ -1,5 +1,5 @@
 function TaskStorage(){
-	var storage = window.sessionStorage;
+	var storage = window.localStorage;
 	 this.getAllTasks = function(){
 		var tasks = [];
 		for(var i=0;i<storage.length;i++){

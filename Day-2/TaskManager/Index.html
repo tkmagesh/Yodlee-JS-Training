@@ -71,7 +71,8 @@
 			newTaskItem.innerHTML = task.taskName;
 			newTaskItem.addEventListener("click",onTaskItemClick);
 			newTaskItem.setAttribute("data-task-id",task.taskId);
-
+			if (task.isCompleted)
+				newTaskItem.classList.add("completed");
 			ulTaskList.appendChild(newTaskItem)
 		}
 
@@ -94,6 +95,7 @@
 			} else {
 				this.classList.add("completed");
 			}
+			taskStorage.toggleCompletion(this.getAttribute("data-task-id"));
 		}
 
 	})();
