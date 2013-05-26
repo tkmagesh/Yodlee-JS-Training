@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Task Manager</title>
+	<style>
+	body {
+		margin : 0px;
+	}
+	h1{
+		margin-left: 0px;
+		margin-right: 0px;
+		border-top: 3px solid blue;
+		border-bottom: 3px solid blue;
+		background-color: lightblue;
+		padding: 20px 10px;
+	}
+	#container{
+		margin-left: 20px;
+	}
+	.completed {
+		color : red;
+		text-decoration: line-through;
+		font-style: italic;
+	}
+	</style>
+	<script src="TaskStorage.js"></script>
+	<script>
+	var utils = {
+		forEach : (function(){
+			if (Array.prototype.forEach) {
+				return Array.prototype.forEach;
+			} else {
+				return function(cb){
+					var list = this;
+					for(var i=0;i<list.length;i++)
+						cb(list[i]);
+				}
+			}
+		})()
+	};
+
+	
+	
+	(function(){
+		var ulTaskList,
+			taskStorage = new TaskStorage();
+
+		window.addEventListener("DOMContentLoaded",function(){
+			document.getElementById("btnAddTask").addEventListener("click",onBtnAddTaskClick);
+			document.getElementById("btnRemoveCompletedTasks").addEventListener("click",onBtnRemoveCompletedTasksClick);
+			ulTaskList = document.getElementById("ulTaskList");
+			var localTasks = taskStorage.getAllTasks();
+			for(var i=0;i<localTasks.length;i++){
+				addTaskToUi(localTasks[i]);
+			}
+			
+		});
+
+		
+
+		function onBtnAddTaskClick(){
+			var taskName = document.getElementById("txtTaskName").value;
+			var newTask = taskStorage.addTask(taskName);
+			addTaskToUi(newTask);
+			document.getElementById("txtTaskName").value = "";
+		}
+
+		function addTaskToUi(task){
+			var newTaskItem = document.createElement("li");
+			newTaskItem.innerHTML = task.taskName;
+			newTaskItem.addEventListener("click",onTaskItemClick);
+			newTaskItem.setAttribute("data-task-id",task.taskId);
+
+			ulTaskList.appendChild(newTaskItem)
+		}
+
+		
+		function onBtnRemoveCompletedTasksClick(){
+			for(var i=ulTaskList.children.length-1;i >= 0;i--){
+				var taskItem = ulTaskList.children[i];
+				if (taskItem.classList.contains("completed")){
+					var taskId = taskItem.getAttribute("data-task-id");
+					taskStorage.removeTask(taskId);
+					ulTaskList.removeChild(taskItem);
+				}
+			}
+		}
+
+		
+		function onTaskItemClick(){
+			if (this.classList.contains("completed")){
+				this.classList.remove("completed");
+			} else {
+				this.classList.add("completed");
+			}
+		}
+
+	})();
+	</script>
+</head>
+<body>
+	<h1>Task Manager</h1>
+	<div id="container">
+	<span>Task :</span>
+	<input type="text" name="" id="txtTaskName">
+	<input type="button" value="Add Task" id="btnAddTask">
+	<input type="button" id="btnRemoveCompletedTasks" value="Remove Completed">
+	<ul id="ulTaskList">
+		
+	</ul>
+	<div id="divMessage"></div>	
+	</div>
+	
+</body>
+</html>
