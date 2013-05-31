@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script>
+	(function(){
+		document.addEventListener("DOMContentLoaded",function(){
+			document.getElementById("btnStart").addEventListener("click",function(){
+				displayMessage("Work Started");
+				DoWork(function(){
+					displayMessage("Work Completed");
+				});
+				
+			});
+			function displayMessage(msg){
+				document.getElementById("divMessage").innerHTML += msg + "<br/>";
+			}
+			function DoWork(onComplete){
+				var count = 0,
+					noOfCycles = 100;
+				function doCycle(){
+					for(var i=0;i<1000;i++){
+						for(var j=0;j<1000;j++)
+							for(var k=0;k<100;k++){}
+					}
+					count++;
+					if (count <= 100){
+						setTimeout(doCycle,10);
+						//doCycle();
+						displayProgress(count);
+					} else {
+						onComplete();
+					}
+				}
+				doCycle();				
+			}
+			function displayProgress(percentCompleted){
+
+				console.log(percentCompleted + "% completed");
+			}
+			function displayProgress(percentCompleted){
+
+				document.getElementById("progress").value = percentCompleted;
+				document.getElementById("spanProgress").innerHTML = percentCompleted + "% completed";
+			}
+		});
+	})();
+
+	</script>
+</head>
+<body>
+	<input type="text" name="" >
+	<input type="button" value="Start" id="btnStart">
+	<br>
+	<progress id="progress" min="0" max="100"></progress>
+	<span id="spanProgress"></span>
+	<div id="divMessage"></div>
+</body>
+</html>
