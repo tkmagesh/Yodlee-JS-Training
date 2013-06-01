@@ -1,0 +1,10 @@
+{
+	"name" : "firstConnectApp",
+	"version" : "0.0.1",
+	"description": "exploring connect middleware",
+	"dependencies": {
+		"connect": "*",
+		"formidable" : "*",
+		"qs" : "*"
+	}
+}
